@@ -16,13 +16,13 @@ type DeviceScheduler interface {
 	// remove node
 	RemoveNode(nodeName string)
 	// see if pod fits on node & return device score
-	PodFitsDevice(nodeInfo *types.NodeInfo, podInfo *types.PodInfo, fillAllocateFrom bool, runGrpScheduler bool) (bool, []PredicateFailureReason, float64)
+	PodFitsDevice(nodeInfo *types.NodeInfo, podInfo *types.PodInfo, fillAllocateFrom bool) (bool, []PredicateFailureReason, float64)
 	// allocate resources
-	PodAllocate(nodeInfo *types.NodeInfo, podInfo *types.PodInfo, runGrpScheduler bool) error
+	PodAllocate(nodeInfo *types.NodeInfo, podInfo *types.PodInfo) error
 	// take resources from node
-	TakePodResources(*types.NodeInfo, *types.PodInfo, bool) error
+	TakePodResources(*types.NodeInfo, *types.PodInfo) error
 	// return resources to node
-	ReturnPodResources(*types.NodeInfo, *types.PodInfo, bool) error
+	ReturnPodResources(*types.NodeInfo, *types.PodInfo) error
 	// GetName returns the name of a device
 	GetName() string
 	// Tells whether group scheduler is being used?
