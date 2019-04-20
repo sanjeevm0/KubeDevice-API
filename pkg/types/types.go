@@ -79,6 +79,8 @@ type NodeInfo struct {
 	Allocatable ResourceList   `json:"allocatable,omitempty"` // capacity minus reserverd
 	Used        ResourceList   `json:"used,omitempty"`        // being used by pods, must be less than allocatable
 	Scorer      ResourceScorer `json:"scorer,omitempty"`
+	KubeCap     ResourceList   `json:"-"` // capacity patched into extended resources directly -- stuff default scheduler takes care of
+	KubeAlloc   ResourceList   `json:"-"` // stuff default scheduler takes care of
 }
 
 func NewNodeInfo() *NodeInfo {
