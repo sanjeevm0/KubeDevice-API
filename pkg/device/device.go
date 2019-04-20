@@ -4,9 +4,10 @@ import (
 	"github.com/Microsoft/KubeDevice-API/pkg/types"
 )
 
-type Volume struct {
-	Name   string
-	Driver string
+type Mount struct {
+	ContainerPath string
+	HostPath      string
+	ReadOnly      bool
 }
 
 // Device is a device to use
@@ -18,9 +19,9 @@ type Device interface {
 	// UpdateNodeInfo - updates a node info structure by writing capacity, allocatable, used, scorer
 	UpdateNodeInfo(*types.NodeInfo) error
 	// Allocate attempst to allocate the devices
-	// Returns list of (VolumeName, VolumeDriver), and list of Devices to use
+	// Returns list of Mounts, and list of Devices to use
 	// Returns an error on failure.
-	Allocate(*types.PodInfo, *types.ContainerInfo) ([]Volume, []string, error)
+	Allocate(*types.PodInfo, *types.ContainerInfo) ([]Mount, []string, error)
 	// GetName returns the name of a device
 	GetName() string
 }
