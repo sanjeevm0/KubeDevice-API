@@ -7,7 +7,7 @@ import (
 type Mount struct {
 	ContainerPath string
 	HostPath      string
-	ReadOnly      bool
+	Readonly      bool
 }
 
 // Device is a device to use
