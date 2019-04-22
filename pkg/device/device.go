@@ -21,7 +21,7 @@ type Device interface {
 	// Allocate attempst to allocate the devices
 	// Returns list of Mounts, and list of Devices to use
 	// Returns an error on failure.
-	Allocate(*types.PodInfo, *types.ContainerInfo) ([]Mount, []string, error)
+	Allocate(*types.PodInfo, *types.ContainerInfo) ([]Mount, []string, map[string]string, error)
 	// GetName returns the name of a device
 	GetName() string
 }
