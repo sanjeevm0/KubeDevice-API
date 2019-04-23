@@ -5,7 +5,38 @@ import (
 	"net"
 	"reflect"
 	"sort"
+
+	"github.com/golang/glog"
 )
+
+// Logf provides logging functionality inside plugins
+var Logf func(int, string, ...interface{})
+
+// Warningf provides logging functionality inside plugins
+var Warningf func(string, ...interface{})
+
+// Errorf provides logginf functionality inside plugins
+var Errorf func(string, ...interface{})
+
+func Log(level int, format string, args ...interface{}) {
+	if glog.V(glog.Level(level)) {
+		glog.Infof(format, args...)
+	}
+}
+
+func Error(format string, args ...interface{}) {
+	glog.Errorf(format, args...)
+}
+
+func Warning(format string, args ...interface{}) {
+	glog.Warningf(format, args...)
+}
+
+func init() {
+	Logf = Log
+	Errorf = Error
+	Warningf = Warning
+}
 
 func LocalIPsWithoutLoopback() ([]net.IP, error) {
 	interfaces, err := net.Interfaces()
@@ -45,12 +76,3 @@ func SortedStringKeys(x interface{}) []string {
 	}
 	panic("Not a map")
 }
-
-// Logf provides logging functionality inside plugins
-var Logf func(int, string, ...interface{})
-
-// Warningf provides logging functionality inside plugins
-var Warningf func(string, ...interface{})
-
-// Errorf provides logginf functionality inside plugins
-var Errorf func(string, ...interface{})
