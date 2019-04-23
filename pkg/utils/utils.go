@@ -45,3 +45,12 @@ func SortedStringKeys(x interface{}) []string {
 	}
 	panic("Not a map")
 }
+
+// Logf provides logging functionality inside plugins
+var Logf func(int, string, ...interface{})
+
+// Warningf provides logging functionality inside plugins
+var Warningf func(string, ...interface{})
+
+// Errorf provides logginf functionality inside plugins
+var Errorf func(string, ...interface{})

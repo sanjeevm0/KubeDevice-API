@@ -8,7 +8,6 @@ import (
 
 	"github.com/Microsoft/KubeDevice-API/pkg/types"
 	"github.com/Microsoft/KubeDevice-API/pkg/utils"
-	"k8s.io/klog"
 )
 
 // IsGroupResourceName returns true if the resource name has the group resource prefix
@@ -84,7 +83,7 @@ func TranslateResource(nodeResources types.ResourceList, containerRequests types
 					mapGrp = groupMap[matches[3]]
 				}
 				newResKey = types.ResourceName(matches[1] + thisStage + "/" + mapGrp + "/" + nextStage + "/" + matches[2])
-				klog.V(7).Infof("Writing new resource %v - old %v", newResKey, resKey)
+				utils.Logf(7, "Writing new resource %v - old %v", newResKey, resKey)
 				resourceModified = true
 			}
 		}
