@@ -57,7 +57,11 @@ type PodInfo struct {
 }
 
 func NewPodInfo() *PodInfo {
-	return &PodInfo{Requests: make(ResourceList), InitContainers: make(map[string]ContainerInfo), RunningContainers: make(map[string]ContainerInfo)}
+	return &PodInfo{
+		Requests:          make(ResourceList),
+		InitContainers:    make(map[string]ContainerInfo),
+		RunningContainers: make(map[string]ContainerInfo),
+	}
 }
 
 func (p *PodInfo) GetContainerInPod(name string) *ContainerInfo {
