@@ -20,16 +20,19 @@ var Errorf func(string, ...interface{})
 
 func Log(level int, format string, args ...interface{}) {
 	if glog.V(glog.Level(level)) {
-		glog.Infof(format, args...)
+		str := fmt.Sprintf(format, args...)
+		glog.InfoDepth(1, str)
 	}
 }
 
 func Error(format string, args ...interface{}) {
-	glog.Errorf(format, args...)
+	str := fmt.Sprintf(format, args...)
+	glog.ErrorDepth(1, str)
 }
 
 func Warning(format string, args ...interface{}) {
-	glog.Warningf(format, args...)
+	str := fmt.Sprintf(format, args...)
+	glog.WarningDepth(1, str)
 }
 
 func init() {

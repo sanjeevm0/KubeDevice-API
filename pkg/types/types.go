@@ -84,8 +84,14 @@ type NodeInfo struct {
 }
 
 func NewNodeInfo() *NodeInfo {
-	return &NodeInfo{Capacity: make(ResourceList), Allocatable: make(ResourceList),
-		Used: make(ResourceList), Scorer: make(ResourceScorer)}
+	return &NodeInfo{
+		Capacity:    make(ResourceList),
+		Allocatable: make(ResourceList),
+		Used:        make(ResourceList),
+		Scorer:      make(ResourceScorer),
+		KubeCap:     make(ResourceList),
+		KubeAlloc:   make(ResourceList),
+	}
 }
 
 func (ni *NodeInfo) Clone() *NodeInfo {
