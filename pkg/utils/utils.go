@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"sort"
 
+	"github.com/Microsoft/KubeDevice-API/pkg/kdlog"
 	"github.com/Microsoft/KubeDevice-API/pkg/types"
-	"github.com/golang/glog"
 )
 
 // Logf provides logging functionality inside plugins
@@ -20,20 +20,20 @@ var Warningf func(string, ...interface{})
 var Errorf func(string, ...interface{})
 
 func Log(level int, format string, args ...interface{}) {
-	if glog.V(glog.Level(level)) {
+	if kdlog.V(kdlog.Level(level)) {
 		str := fmt.Sprintf(format, args...)
-		glog.InfoDepth(1, str)
+		kdlog.InfoDepth(1, str)
 	}
 }
 
 func Error(format string, args ...interface{}) {
 	str := fmt.Sprintf(format, args...)
-	glog.ErrorDepth(1, str)
+	kdlog.ErrorDepth(1, str)
 }
 
 func Warning(format string, args ...interface{}) {
 	str := fmt.Sprintf(format, args...)
-	glog.WarningDepth(1, str)
+	kdlog.WarningDepth(1, str)
 }
 
 func init() {
