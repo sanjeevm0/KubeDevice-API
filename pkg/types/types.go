@@ -25,7 +25,13 @@ type ContainerInfo struct {
 }
 
 func NewContainerInfo() *ContainerInfo {
-	return &ContainerInfo{KubeRequests: make(ResourceList), Requests: make(ResourceList), AllocateFrom: make(ResourceLocation), Scorer: make(ResourceScorer), DevRequests: make(ResourceList)}
+	return &ContainerInfo{
+		KubeRequests: make(ResourceList),
+		Requests:     make(ResourceList),
+		AllocateFrom: make(ResourceLocation),
+		Scorer:       make(ResourceScorer),
+		DevRequests:  make(ResourceList),
+	}
 }
 
 func FillContainerInfo(fill *ContainerInfo) *ContainerInfo {
