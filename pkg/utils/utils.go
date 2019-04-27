@@ -10,6 +10,9 @@ import (
 	"github.com/Microsoft/KubeDevice-API/pkg/types"
 )
 
+// Logb tells whether to log
+var Logb func(int) bool
+
 // Logf provides logging functionality inside plugins
 var Logf func(int, string, ...interface{})
 
@@ -18,6 +21,10 @@ var Warningf func(string, ...interface{})
 
 // Errorf provides logginf functionality inside plugins
 var Errorf func(string, ...interface{})
+
+func LogV(level int) bool {
+	return bool(kdlog.V(kdlog.Level(level)))
+}
 
 func Log(level int, format string, args ...interface{}) {
 	if kdlog.V(kdlog.Level(level)) {
@@ -37,6 +44,7 @@ func Warning(format string, args ...interface{}) {
 }
 
 func init() {
+	Logb = LogV
 	Logf = Log
 	Errorf = Error
 	Warningf = Warning
