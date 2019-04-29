@@ -23,11 +23,7 @@ const logFlushFreqFlagName = "log-flush-frequency"
 
 var logFlushFreq = pflag.Duration(logFlushFreqFlagName, 5*time.Second, "Maximum number of seconds between log flushes")
 
-// TODO(thockin): This is temporary until we agree on log dirs and put those into each cmd.
-func init() {
-	InitFlags(flag.CommandLine)
-	flag.Set("logtostderr", "false")
-}
+var inited = false
 
 // AddFlags registers this package's flags on arbitrary FlagSets, such that they point to the
 // same value as the global flags.
@@ -46,6 +42,11 @@ func (writer KlogWriter) Write(data []byte) (n int, err error) {
 
 // InitLogs initializes logs the way we want for kubernetes.
 func InitLogs() {
+	if !inited {
+		InitFlags(flag.CommandLine)
+		flag.Set("logtostderr", "false")
+		inited = true
+	}
 	log.SetOutput(KlogWriter{})
 	log.SetFlags(0)
 	// The default glog flush interval is 5 seconds.
