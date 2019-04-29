@@ -1,6 +1,8 @@
 package device
 
 import (
+	"plugin"
+
 	"github.com/Microsoft/KubeDevice-API/pkg/types"
 )
 
@@ -24,4 +26,18 @@ type Device interface {
 	Allocate(*types.PodInfo, *types.ContainerInfo) ([]Mount, []string, map[string]string, error)
 	// GetName returns the name of a device
 	GetName() string
+}
+
+// CreateDeviceFromPlugin returns a device from a plugin name
+func CreateDeviceFromPlugin(pluginName string) (Device, error) {
+	p, err := plugin.Open(pluginName)
+	if err != nil {
+		return nil, err
+	}
+	f, err := p.Lookup("CreateDevicePlugin")
+	if err != nil {
+		return nil, err
+	}
+	d, err := f.(func() (Device, error))()
+	return d, err
 }
