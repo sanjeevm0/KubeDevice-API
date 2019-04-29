@@ -119,6 +119,12 @@ func (ni *NodeInfo) Clone() *NodeInfo {
 	for key, val := range ni.Scorer {
 		newNode.Scorer[key] = val
 	}
+	for key, val := range ni.KubeCap {
+		newNode.KubeCap[key] = val
+	}
+	for key, val := range ni.KubeAlloc {
+		newNode.KubeAlloc[key] = val
+	}
 	return newNode
 }
 
