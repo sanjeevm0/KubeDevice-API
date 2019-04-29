@@ -123,8 +123,7 @@ func (ni *NodeInfo) Clone() *NodeInfo {
 }
 
 func NewNodeInfoWithName(name string) *NodeInfo {
-	node := &NodeInfo{Capacity: make(ResourceList), Allocatable: make(ResourceList),
-		Used: make(ResourceList), Scorer: make(ResourceScorer)}
+	node := NewNodeInfo()
 	node.Name = name
 	return node
 }
